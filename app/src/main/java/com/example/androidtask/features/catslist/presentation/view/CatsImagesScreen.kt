@@ -47,11 +47,16 @@ fun CatsImagesScreen(
     val openAlertDialog = remember { mutableStateOf(true) }
     val catImageStateValue = catImageViewModel.catImagesStateFlow.collectAsState().value
     LaunchedEffect(Unit) {
-        for (i in 1 .. 10) catImageViewModel.loadCatImagesList()
+        for (i in 1..10) catImageViewModel.loadCatImagesList(i)
     }
 
     when (catImageStateValue) {
-        is UiState.Success -> CardsComponent(modifier = modifier, contentPadding = contentPadding, catImageStateValue.data)
+        is UiState.Success -> CardsComponent(
+            modifier = modifier,
+            contentPadding = contentPadding,
+            catImageStateValue.data
+        )
+
         is UiState.Loading -> LoadingProgress(modifier = modifier)
         is UiState.Error -> if (openAlertDialog.value) AlertDialog(
             modifier = modifier,

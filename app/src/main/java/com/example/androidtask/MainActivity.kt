@@ -45,11 +45,13 @@ class MainActivity : ComponentActivity() {
                     })
                 }, floatingActionButtonPosition = FabPosition.End, floatingActionButton = {
                     ExtendedFloatingActionButton(onClick = {
-                        for (i in 1 .. 10) catImageViewModel.loadCatImagesList()
+                        for (i in 1..10) catImageViewModel.loadCatImagesList(i)
                     }) { Text("Refresh Cats") }
                 }) { innerPadding ->
                     CatsImagesScreen(
-                        modifier = Modifier.consumeWindowInsets(innerPadding).padding(),
+                        modifier = Modifier
+                            .consumeWindowInsets(innerPadding)
+                            .padding(),
                         contentPadding = innerPadding,
                         catImageViewModel
                     )

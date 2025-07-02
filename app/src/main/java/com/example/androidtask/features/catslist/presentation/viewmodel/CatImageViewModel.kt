@@ -19,9 +19,9 @@ class CatImageViewModel @Inject constructor(
 
     val catImagesStateFlow = MutableStateFlow<UiState<List<CatImageModel>>>(UiState.Loading)
 
-    fun loadCatImagesList() {
+    fun loadCatImagesList(callSize: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            catImagesStateFlow.emit(UiState.Loading)
+            if (callSize == 1) catImagesStateFlow.emit(UiState.Loading)
 
             when (val result = catImageUseCase.execute()) {
                 is CatsImagesResult.CatsImagesFailure -> catImagesStateFlow.emit(
